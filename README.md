@@ -156,13 +156,30 @@ sample.onnx
 
 This model is compatible with CMSSW inference workflows.
 
----
+--- 
+## CMSSW Inference (Task 2g)
 
+The CMS Software Framework (CMSSW) environment was successfully set up locally using Docker, and the ONNX model was integrated into the inference workflow via the RecoE2E package.
+
+However, executing the full CMSSW inference pipeline using `EGInference_cfg.py` requires access to external CMS infrastructure, including:
+
+- Frontier conditions database  
+- Detector geometry packages  
+- Properly configured CVMFS environment  
+
+These dependencies are not fully available in a standalone local Docker setup. As a result, complete execution of the CMSSW pipeline could not be achieved locally.
+
+To address this limitation, the exported ONNX model was validated independently using ONNX Runtime. The model successfully performed inference with the expected input structure (image + auxiliary features), and timing measurements were obtained:
+```
+Average inference time: 0.124 s per event
+```
+---
+```markdown
 ## Repository Structure
 
-```
 .
 ├── e2e_mass_regression_cms_pipeline.ipynb
+├── task2g_inference_timing.py
 ├── model/
 │ ├── best_model.pth
 │ ├── sample.onnx
@@ -176,7 +193,3 @@ This model is compatible with CMSSW inference workflows.
 │ ├── metrics.txt
 │ └── test_predictions.csv
 └── README.md
-```
-
-
----
